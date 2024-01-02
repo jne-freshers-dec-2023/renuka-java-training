@@ -1,0 +1,130 @@
+SELECT * from emp;
+ALTER Table   Employee add BloodGroup Varchar(255); 
+
+ALTER  table Employee  Rename to emp;
+
+SELECT  FirstName, Title from emp WHERE  Title="Sales Support Agent";
+
+SELECT  DISTINCT  Title from emp;
+
+SELECT  FirstName,LastName,HireDate from emp order by HireDate;
+
+Alter table emp add Salary int;
+
+UPDATE  emp Set Salary = 800000 where EmployeeId=6;
+UPDATE  emp Set Salary = 400000 where EmployeeId=7;
+UPDATE  emp Set BloodGroup = "AB-" where EmployeeId=7;
+
+
+--second highest salary
+SELECT max(Salary) from emp where Salary < (SELECT max(Salary) from emp);
+
+
+--second highest salary using not in <> 
+SELECT  MAX(Salary) from emp where Salary <> (SELECT MAX(Salary) from emp );
+
+--nth highest salary 
+SELECT  Salary from emp order by Salary LIMIT 4,1; 
+
+SELECT  * from emp where FirstName LIKE '%e__' ;
+
+select * from Playlist  ;
+
+SELECT  * from PlaylistTrack ;
+
+
+--inner join on PlayList table and PlayListTrack
+SELECT  Name,TrackId,p.PlaylistId  from Playlist p inner join PlaylistTrack pt on p.PlaylistId = pt.PlaylistId Limit 20 ;
+
+
+--Full join on PlayList table and PlayListTrack
+
+SELECT  Name,TrackId,p.PlaylistId  from Playlist p full join PlaylistTrack pt on p.PlaylistId  = pt.PlaylistId  ;
+
+
+--Left JOIN 
+Select Name,count(TrackId),p.PlayListId from Playlist p left join  PlaylistTrack pt on p.PlaylistId =pt.PlaylistId GROUP by p.PlaylistId ; 
+
+
+SELECT  COUNT(TrackId) from Playlist p ,PlaylistTrack pt  where pt.Name="Music"; 
+
+
+SELECT  * from emp;
+
+
+select LastName  from emp group by LastName HAVING count(LastName) > 1;
+
+--doubt
+SELECT DISTINCT (e1.Title)  from
+emp e1 , emp e2 
+on e1.EmployeeId <> e2.EmployeeId AND 
+e1.city = e2.City 
+and e1.Title <> e2.Title;
+
+
+
+--creating table and applying the constraints
+create table customer(id int not null unique ,
+name varchar(20) not null,
+age int not null,
+address varchar(255),
+salary int);
+
+--applying contraints on existing table
+alter  table customer  add constraint id primary Key(id);
+ALTER TABLE customer ADD constraint uniqueid UNIque(id);
+alter table customer add column email varchar(255);
+
+
+
+select * from customer ;
+
+--inserting data into customer
+
+INSERT INTO customer  VALUES
+(1, 'Ramesh', 32, 'Ahmedabad', 20000),
+(2, 'Khilan', 25, 'Delhi', 15000),
+(3, 'Kaushik', 23, 'Kota', 20000 ),
+(4, 'Chaitali', 25, 'Mumbai', 65000 ),
+(5, 'Hardik', 27, 'Bhopal', 85000 ),
+(6, 'Komal', 22, 'Hyderabad', 45000 ),
+(7, 'Muffy', 24, 'Indore', 10000 );
+
+
+select * from customer ;
+
+
+--creating index on name and age
+create  index indxName on customer(name,age);
+
+--SHOW INDEX FROM customer ;
+--finding data of a customer having age is 22
+select * from customer c  where age=22;
+
+
+--creating view
+create  view custView as select * from customer where age > 25;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
